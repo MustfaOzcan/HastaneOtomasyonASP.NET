@@ -1,0 +1,114 @@
+﻿@model List<Doktor>
+<h1>Doktorlar Sayfasi</h1>
+
+<div class="container">
+
+	<div class="row pt-3 pb-4">
+
+		<h3>Doktorlar Listesi</h3>
+
+	</div>
+
+	<table class="table table-bordered"
+
+	<tr>
+
+		<thead>
+				<th>
+					Resim
+				</th>
+
+				<th>
+					Id
+				</th>
+
+				<th>
+					Ad
+				</th>
+
+				<th>
+					Soyad
+				</th>
+
+				<th>
+					Alan
+				</th>
+
+				<th>
+					@* guncelle *@
+				</th>
+
+				<th>
+					@* ekle *@
+				</th>
+		</thead>
+		<tbody>
+				@foreach (var doktor in Model)
+				{
+						<tr>
+
+
+							<th>
+							@* Resim gelcek *@
+								bos simdilik
+							</th>
+
+							<th>
+							@doktor.Id
+							</th>
+
+							<th>
+							@doktor.Ad
+							</th>
+
+							<th>
+							@doktor.Soyad
+							</th>
+
+							<th>
+							@doktor.Alan
+							</th>
+
+							<th>
+								<a asp-controller="Doktor" asp-action="Guncelle" class="btn btn-outline-success">Güncelle</a>
+
+							</th>
+
+
+							
+
+							<th>
+								<a asp-controller="Doktor" asp-action="Sil" class="btn btn-outline-primary">Sİl</a>
+								
+							</th>
+
+
+						</tr>
+
+				}
+		</tbody>
+
+
+
+	</tr>
+
+
+</table>
+
+	<div class="row pt-3 pb-2">
+
+		<div>
+			<div class="d-grid gap-2">
+				<a asp-controller="Doktor" asp-action="Ekle" class="btn btn-lg btn-outline-primary" type="button"> Doktor Ekle  </a>
+			</div>
+
+		</div>
+
+
+	</div>
+
+</div>
+
+
+
+

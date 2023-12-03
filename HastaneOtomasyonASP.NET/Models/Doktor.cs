@@ -17,10 +17,12 @@ namespace HastaneOtomasyonASP.NET.Models
 		[MaxLength(25)]
 		[DisplayName("Doktor Alanı")]
 		public string Alan { get; set; }//acılır pencere ile hasta secebilsin
-		//[Required]
-		//public string ResimURL { get; set; }
+		[ValidateNever]
+		public string ResimURL { get; set; }
 
 
+		//[ValidateNever]//validation yapmasın
+		//public int HastaId {  get; set; }
 		//[ForeignKey("HastaId")]
 		//[ValidateNever]//validation yapmasın
 		//public Hasta Hasta { get; set; }

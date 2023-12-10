@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HastaneOtomasyonASP.NET.Migrations
 {
     /// <inheritdoc />
-    public partial class ValidateNeverRandevuTablosu : Migration
+    public partial class DrCalismaSaatleri : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -58,6 +58,25 @@ namespace HastaneOtomasyonASP.NET.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CalismaSaatleri",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Saat = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DoktorId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CalismaSaatleri", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CalismaSaatleri_Doktorlar_DoktorId",
+                        column: x => x.DoktorId,
+                        principalTable: "Doktorlar",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Randevular",
                 columns: table => new
                 {
@@ -93,6 +112,11 @@ namespace HastaneOtomasyonASP.NET.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_CalismaSaatleri_DoktorId",
+                table: "CalismaSaatleri",
+                column: "DoktorId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Randevular_DoktorId",
                 table: "Randevular",
                 column: "DoktorId");
@@ -111,6 +135,9 @@ namespace HastaneOtomasyonASP.NET.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "CalismaSaatleri");
+
             migrationBuilder.DropTable(
                 name: "Randevular");
 

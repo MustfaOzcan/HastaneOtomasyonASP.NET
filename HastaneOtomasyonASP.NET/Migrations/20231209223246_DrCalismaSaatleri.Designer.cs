@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HastaneOtomasyonASP.NET.Migrations
 {
     [DbContext(typeof(UygulamaDbContext))]
-    [Migration("20231203190535_ValidateNeverRandevuTablosu")]
-    partial class ValidateNeverRandevuTablosu
+    [Migration("20231209223246_DrCalismaSaatleri")]
+    partial class DrCalismaSaatleri
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,28 @@ namespace HastaneOtomasyonASP.NET.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("HastaneOtomasyonASP.NET.Models.CalismaSaati", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("DoktorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Saat")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoktorId");
+
+                    b.ToTable("CalismaSaatleri");
+                });
 
             modelBuilder.Entity("HastaneOtomasyonASP.NET.Models.Doktor", b =>
                 {
@@ -140,6 +162,13 @@ namespace HastaneOtomasyonASP.NET.Migrations
                     b.ToTable("Randevular");
                 });
 
+            modelBuilder.Entity("HastaneOtomasyonASP.NET.Models.CalismaSaati", b =>
+                {
+                    b.HasOne("HastaneOtomasyonASP.NET.Models.Doktor", null)
+                        .WithMany("CalismaSaatleri")
+                        .HasForeignKey("DoktorId");
+                });
+
             modelBuilder.Entity("HastaneOtomasyonASP.NET.Models.Randevu", b =>
                 {
                     b.HasOne("HastaneOtomasyonASP.NET.Models.Doktor", "Doktor")
@@ -165,6 +194,11 @@ namespace HastaneOtomasyonASP.NET.Migrations
                     b.Navigation("Hasta");
 
                     b.Navigation("Polikinlik");
+                });
+
+            modelBuilder.Entity("HastaneOtomasyonASP.NET.Models.Doktor", b =>
+                {
+                    b.Navigation("CalismaSaatleri");
                 });
 #pragma warning restore 612, 618
         }
